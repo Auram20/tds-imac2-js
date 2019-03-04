@@ -7,7 +7,12 @@
  * false sinon. On utilisera une fonction vue dans le TD précédent
  */
 
-export const every = () => {} // TODO
+export const every = (predicat, array) => {
+  // return array.every(predicat)
+  // Marche par reccurrence : notre valeur initiale est acc qui est définie à true, on réaplique le prédicat à l'élt qui suit
+  // si false, ça change l'acc qui restera false et renverra false à la fin car on verifie que l'acc == true ( dernier attribut )
+  return array.reduce((acc, el) => acc && predicat(el), true)
+}
 
 /**
  * Exercice 2
@@ -30,7 +35,7 @@ export const every = () => {} // TODO
  * Créons une première fonction utilitaire pour créer un tag, comme au TD précédent.
  */
 
-export const createTag = (name, attributes, children) => ({
+export const createTag = (name, attributes = null, children = []) => ({
   name: name,
   attributes: attributes,
   children: children
@@ -59,10 +64,10 @@ export const createTag = (name, attributes, children) => ({
  * On passera `null` à `attributes` si on décide de ne pas en mettre. De même, pour `children`, on mettra un tableau vide.
  */
 
-export const figure = () => {} // TODO
-export const figcaption = () => {} // TODO
-export const img = () => {} // TODO
-export const p = () => {} // TODO
+export const figure = (attributes, children) => { return createTag('figure', attributes, children) } // TODO
+export const figcaption = (attributes, children) => { return createTag('figcaption', attributes, children) } // TODO
+export const img = (attributes) => { return createTag('img', attributes, []) } // TODO
+export const p = (attributes, children) => { return createTag('p', attributes, children) } // TODO
 
 /**
  * Exercice 2.2
@@ -81,7 +86,13 @@ export const p = () => {} // TODO
  * </figure>
  */
 
-export const generateMarkupForDog = (url, nom, description) => {} // TODO
+export const generateMarkupForDog = (url, nom, description) => {
+  const dogName = p(null, [nom])
+  const dogDescription = p(null, [description])
+  const dogFigcaption = figcaption(null, [dogName, dogDescription])
+  const dogImg = img({src: url})
+  return figure(null, [dogImg, dogFigcaption])
+} // TODO
 
 /** Exercice 2.3
  * Ecrivons maintenant la fonction qui, pour une liste de chiens (voir celle de `./state.js`),
@@ -89,12 +100,16 @@ export const generateMarkupForDog = (url, nom, description) => {} // TODO
  * notre markup, le noeud "racine" que vous devrez créer sera une div
  */
 
-export const generateMarkupForAllDogs = (dogs) => {} // TODO
+export const generateMarkupForAllDogs = (dogs) => {
+  return createTag('div', null, dogs.map(i => generateMarkupForDog('', i.name, i.description)))
+} // on crée la div avec comme enfant le tableau qui renvoie les markups (maps)
 
 /** Exercice 2.4
  * Maintenant qu'on sait générer le markup, on veut l'afficher seulement si l'utilisateur aime les chiens,
  * sinon on affiche une div avec un message d'erreur.
  */
 
-export const errorMessage = createTag(/* ... */) // TODO
-export const conditionnallyDisplayDogs = (likesDogs, dogs) => {} // TODO
+export const errorMessage = createTag('div', null, ['erreur']) // TODO
+export const conditionnallyDisplayDogs = (likesDogs, dogs) => {
+  return likesDogs ? generateMarkupForAllDogs(dogs) : errorMessage
+} // TODO
