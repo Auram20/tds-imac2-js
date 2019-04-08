@@ -1,0 +1,62 @@
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.flex-item {
+  border: solid 3px black;
+  background: white;
+  color: black;
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#dice2 {
+  transform: rotate(45deg);
+  letter-spacing: 2.2em;
+  margin-top: 125px;
+  margin-left: 125px;
+}
+
+#dice3 {
+  transform: rotate(45deg);
+  letter-spacing: 0.6em;
+  margin-top: 35px;
+  margin-left: 35px;
+}
+
+#dot4, #dot6, #dot5 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  
+}
+
+#dot4>div, #dot6>div {
+  flex: 0 50%;  
+}
+
+#dot6>div {
+  line-height: 0.3em;
+}
+
+#dots5 {
+  line-height: 0.3em;
+  flex: 0 50%; 
+}
+
+#thatdot {
+  position: absolute;
+}
